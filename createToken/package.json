@@ -1,0 +1,16 @@
+{
+  "name": "create-token",
+  "version": "1.0.0",
+  "description": "create-token",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "jsonwebtoken": "^7.1.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ganezasan",
+  "license": "ISC"
+}

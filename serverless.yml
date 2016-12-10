@@ -1,0 +1,51 @@
+service: serverless-custom-auth-example
+provider:
+  name: aws
+  runtime: nodejs4.3
+  stage: dev
+  region: us-east-1
+
+package:
+ exclude:
+   - event.json
+   - jwtAuthorizer
+functions:
+  hello:
+    handler: handler.hello
+    memorySize: 128
+    package:
+      include:
+        - handler.js
+    events:
+      - http:
+          path: hello
+          method: post
+          integration: lambda
+          cors: true
+          authorizer:
+            name: jwtAuthorizer
+            resultTtlInSeconds: 1
+  goodNight:
+    handler: handler.goodNight
+    memorySize: 128
+    package:
+      include:
+        - handler.js
+    events:
+      - http:
+          path: good-night
+          method: post
+          integration: lambda
+          cors: true
+          authorizer:
+            name: jwtAuthorizer
+            resultTtlInSeconds: 1
+
+  jwtAuthorizer:
+    handler: jwtAuthorizer/handler.jwtAuthorizer
+    memorySize: 128
+    package:
+      include:
+        - jwtAuthorizer/handler.js
+        - jwtAuthorizer/package.json
+        - jwtAuthorizer/node_modules
